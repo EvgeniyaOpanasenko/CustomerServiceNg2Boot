@@ -6,7 +6,7 @@ import customer.manager.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    void create(Customer customer);
+    boolean create(Customer customer);
     Customer getIteById(long id);
     Customer getByName(String name);
     List<Customer> getAllCustomer();

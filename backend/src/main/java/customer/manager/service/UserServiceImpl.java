@@ -13,11 +13,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void create(User user) {
+    public boolean create(User user) {
         User result = getByName(user.getName());
-        if(!repository.exists(result.getId())){
+        if (!repository.exists(result.getId())) {
             repository.save(user);
+            return true;
         }
+        return false;
     }
 
     @Override
