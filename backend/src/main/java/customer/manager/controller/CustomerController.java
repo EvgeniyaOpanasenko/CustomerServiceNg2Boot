@@ -13,23 +13,25 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("/api")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("Customer")
+    @GetMapping("/customer")
     public ResponseEntity<Customer> getCustomerById(@RequestParam("id") String id) {
         Customer Customer = customerService.getIteById(Integer.parseInt(id));
         return new ResponseEntity<Customer>(Customer, HttpStatus.OK);
     }
-    @GetMapping("all-Customers")
+
+    @GetMapping("/all-customer")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> list = (List<Customer>) customerService.getAllCustomer();
         return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
     }
-    @PostMapping("customer")
+
+    @PostMapping("/customer")
     public ResponseEntity<Void> createCustomer(@RequestBody Customer customer,
                                                UriComponentsBuilder builder) {
         boolean flag = customerService.create(customer);
@@ -41,11 +43,13 @@ public class CustomerController {
                 .buildAndExpand(customer.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
-    @PutMapping("customer")
+
+    @PutMapping("/customer")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
         customerService.updateCustomer(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
+
     @DeleteMapping("customer")
     public ResponseEntity<Void> deleteCustomer(@RequestParam("id") String id) {
         customerService.delete(Long.parseLong(id));
